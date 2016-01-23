@@ -1,0 +1,79 @@
+<%= form_tag survey_given_answers_path(@survey, @given_answer), { class: 'form-class',  role: 'form', method: 'post' } do  %>
+
+     <%= hidden_field_tag :survey_id, @survey.id %>
+     <%#= raise @questions.size.inspect %>
+     <%= hidden_field_tag "total_questions", @questions.size %>
+        <div class="panel-group">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+            </div>
+              <div class="panel-body">
+                
+               <% @questions.each_with_index do |question, index| %>
+                <br>
+
+                
+
+               <strong><%= question.question_text %></strong>
+           <% options = question.answer_option.split('\n') %>
+            <% options_size = options.size %> 
+            <% if question.types == 4 %>
+            <br>
+               <div class="form-group">
+                          <div class="col-lg-4">
+                    <%= text_field_tag "answer#{index+1}" , nil , class: 'form-control'    %>
+                   
+                          </div>
+                      <%= hidden_field_tag "types#{index+1}", question.types %>
+                          <br>
+                </div>
+            <% elsif question.types == 3 %>
+                 <br>
+                    <div class="form-group">
+                      <div class="col-lg-4">
+                  <%= text_area_tag "answer#{index+1}" ,nil ,  class: "form-control" %>
+                  </div>
+                  <%= hidden_field_tag "types#{index+1}", question.types %>
+                          <br>
+                      </div>
+
+              <% elsif question.types == 1 %>
+                  <br>
+                  <% question.answer_option.split('\n').each do |option| %>
+                 
+                      <br>
+                        <%= radio_button_tag "answer#{index+1}" , option%> <%= option %>
+                        <br>
+                         <%= hidden_field_tag "types#{index+1}", question.types %>
+                  <% end %>
+          
+        
+              <% elsif question.types == 2 %>
+                <br>
+                <% question.answer_option.split('\n').each do |option| %>
+                 <br>
+                      <%= check_box_tag "answer#{index+1}[]" , option %> <%= option %> 
+                    <br>
+                     <%= hidden_field_tag "types#{index+1}", question.types %>
+                    <% end %>
+              
+            <% end %>
+
+            
+      <% end %>
+
+      <div class="form-actions">
+
+                  <%=  submit_tag "Submit" , class: "btn btn-success" , "action"=> "create" %>
+
+               </div>
+  <% end %>
+</div>
+</div>
+</div>
+
+    
+
+
+
+

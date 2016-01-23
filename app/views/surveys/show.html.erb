@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @survey.name %>
+</p>
+
+<%= render 'question' , locals: @survey %>
+
+
