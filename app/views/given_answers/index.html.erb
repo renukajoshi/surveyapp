@@ -1,30 +1,37 @@
 <h1>Listing given_answers</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Question</th>
       <th>Answer</th>
+      <th>Attempts</th>
     </tr>
   </thead>
 
   <tbody>
     <% @given_answers.each do |given_answer| %>
       <tr>
-        
-         <td><%#= given_answer.question_id %></td>
         <td>
-          <%#= raise @que.inspect %>
-          <%# @que = given_answer.question %>
-          <%# @que.each do |q| %>
-          <%#= q.question_text %>
-           <%#end %>
-          <%#= raise @que.inspect%>
-          <%# @que = Question.where(:question_id => params[:id])%>
-            <%#= raise @que.inspect%>
-            <%= given_answer.question.question_text %>
+          <%= given_answer.question.question_text %>
         </td>
-        <td><%= given_answer.answer %></td>
+        <td><%= given_answer.answer %>
+            <% @options=GivenAnswer.where(:question_id => question.id)%>
+            <% @options.map(&:answer).uniq.each do |option| %>
+                 <% if question.types == "checkbox" %>
+                      <% checkbox_array=option.split('\n') %>
+                          <% checkbox_array.each do |checkbox_ans| %>
+                              <% if checkbox_ans.empty? %>
+                               <% else %>
+                                  <%= checkbox_ans %><br>
+                                <% end %>
+                          <% end %>
+                  <% else %>
+                      <%= option %><br> 
+                  <% end %>
+              <% end %>
+        </td>
+        <td></td>
       </tr>
     <% end %>
   </tbody>
@@ -33,3 +40,4 @@
 <br>
 
 <%= link_to 'New Given answer', new_given_answer_path %>
+

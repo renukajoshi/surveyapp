@@ -9,9 +9,10 @@ class SurveysController < ApplicationController
   end
 
   def show
-     @survey = Survey.find(params[:id])
+    @survey = Survey.find(params[:id])
   #@category=@post.categories
    @questions=@survey.questions
+   @given_answer=GivenAnswer.new
     #respond_with(@survey)
   end
 

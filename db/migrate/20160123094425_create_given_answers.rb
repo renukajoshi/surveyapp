@@ -7,5 +7,8 @@ class CreateGivenAnswers < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :given_answers, :survey_id
+    add_index :given_answers, :question_id
+    add_index :given_answers, :user_id
   end
 end

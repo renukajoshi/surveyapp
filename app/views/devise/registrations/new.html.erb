@@ -1,29 +1,60 @@
-<h2>Sign up</h2>
+<center>
+<div class="mylogin">
+
+<h2 class="signup_title">Sign up</h2>
+
+  <hr class="colorgraph">
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+  <div class="field form-group">
+   
+     <div class="col-sm-12">
+    <%= f.email_field :email, class: 'form-control'  , :placeholder => " Enter the Email" , required: true %>
   </div>
+</div>
+<br><br><br>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
+
+ <div class="field form-group">
+   
+     <div class="col-sm-12">
+    
+    
+    <%= f.password_field :password, autocomplete: "off" , class: 'form-control'  , :placeholder => " Enter the Password " , required: true %>
+    <% if @minimum_password_length  %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <% end %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+</div>
+
+<br><br><br>
+
+
+   <div class="field form-group">
+   
+     <div class="col-sm-12">
+    <%= f.password_field :password_confirmation, autocomplete: "off" , class: 'form-control'  , :placeholder => " Enter Confirm Password " , required: true %>
+  </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" , class: "btn btn-primary" %>
+<br><br><br>
+
+  <div class="actions form-group">
+    <div class="col-sm-offset-2 col-sm-4">
+    <%= f.submit "Sign up" , class: "btn btn-primary btn-block btn-lg" %>
   </div>
+</div>
+<br><br><br>
 <% end %>
-
+</hr>
+ <hr class="colorgraph">
 <%= render "devise/shared/links" %>
+</hr>
+</div>
+
+</center>
+
+

@@ -1,19 +1,18 @@
-
+<html>
+<head>
+  </head>
+<body>
 <div class="table-responsive">
 <table class="table table-hover">
   <thead align="center">
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
   </thead>
 
   <tbody>
     <% @surveys.each do |survey| %>
       <tr>
         <td><%= link_to survey.name, survey , class: "btn btn-link" %></td>
-        <td><%= link_to 'Show', survey %></td>
-        <td><%= link_to 'Edit', edit_survey_path(survey) %></td>
+        <td><%= link_to 'Show', survey , class: "btn btn-link" %></td>
+        <td><%= link_to 'Edit', edit_survey_path(survey),class: "btn btn-link" %></td>
         <td><%= link_to 'Destroy', survey, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -22,4 +21,17 @@
 
 <br>
 
-<%= link_to 'New Survey', new_survey_path %>
+<%#= link_to 'New Survey', new_survey_path , class: "btn btn-primary" %>
+
+
+
+<% if user_signed_in? %>
+
+  <% if current_user.id == User.first.id %>
+
+<%= link_to 'New Survey', new_survey_path , class: "btn btn-success" %>
+<% end %>
+<% end %>
+
+</body>
+</html>
