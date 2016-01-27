@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125080022) do
+ActiveRecord::Schema.define(version: 20160127113227) do
 
   create_table "answers", force: true do |t|
     t.text     "ans_opt"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20160125080022) do
     t.text     "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "questions", force: true do |t|
@@ -39,12 +40,14 @@ ActiveRecord::Schema.define(version: 20160125080022) do
     t.integer "minimum"
     t.integer "greater_than_or_equal_to"
     t.integer "less_than_or_equal_to"
+    t.integer "responseCount"
   end
 
   create_table "surveys", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "users", force: true do |t|

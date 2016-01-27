@@ -31,6 +31,14 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    # @totalResponseCount = 0
+    # @averageResponseCount = 0
+
+    # for @question.each do  |question|
+    #   totalResponseCount += question.responseCount
+    #   raise totalResponseCount.inpect
+    #   averageResponseCount = totalResponseCount/Question.count
+    # end
     @question.update(question_params)
     respond_with(@question)
   end

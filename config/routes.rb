@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
-  resources :given_answers
+  #resources :given_answers
 
   devise_for :users
   #resources :given_answers
 
-  resources :questions
+  #resources :questions
 
-  resources :questions
+  #resources :questions
 
   resources :surveys do
     resources :questions

@@ -1,24 +1,27 @@
-<h1>Listing given_answers</h1>
-
-<table class="table table-hover">
+ <h1>Listing given_answers</h1>
+<% @user = GivenAnswer.where(:user_id => current_user.id) %>
+<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
   <thead>
     <tr>
       <th>Question</th>
       <th>Answer</th>
       <th>Attempts</th>
+      <th>Answer Result</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @given_answers.each do |given_answer| %>
+    <% @user.each do |given_answer| %>
       <tr>
         <td>
           <%= given_answer.question.question_text %>
         </td>
-        <td><%= given_answer.answer %>
-            <% @options=GivenAnswer.where(:question_id => question.id)%>
+        <td><%#= given_answer.answer %>
+
+            <% @options=GivenAnswer.where(:question_id => given_answer.question.id)%>
+            <%#= raise @options.inspect %>
             <% @options.map(&:answer).uniq.each do |option| %>
-                 <% if question.types == "checkbox" %>
+                 <% if given_answer.question.types == "checkbox" %>
                       <% checkbox_array=option.split('\n') %>
                           <% checkbox_array.each do |checkbox_ans| %>
                               <% if checkbox_ans.empty? %>
@@ -31,13 +34,27 @@
                   <% end %>
               <% end %>
         </td>
-        <td></td>
+        <td>
+          <%=@quest=GivenAnswer.count %>
+        </td>
+        <td>
+            <% @ans = GivenAnswer.group(:answer).count %>
+            <% if @ans.is_a?(Hash) %>
+            <%#= raise @ans.inspect %>
+
+                  <% @ans.each do |value,c|%>
+                    <%=value %>
+                    
+                      <%= c %>
+                   
+                  <% end %>
+            <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Given answer', new_given_answer_path %>
-
+<%= link_to surveys_path, class: 'col-lg-2 col-lg-offset-4 btn btn-info' do %>
+  <i class="glyphicon glyphicon-ok-circle"></i> Finish
+<% end %>

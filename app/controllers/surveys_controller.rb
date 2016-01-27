@@ -1,18 +1,22 @@
 class SurveysController < ApplicationController
   before_action :set_survey, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!, except: :index
 
   respond_to :html
 
   def index
+
     @surveys = Survey.all
     respond_with(@surveys)
   end
 
   def show
-    @survey = Survey.find(params[:id])
-  #@category=@post.categories
-   @questions=@survey.questions
-   @given_answer=GivenAnswer.new
+    #raise params.inspect
+     #@given_answer =GivenAnswer.where(:survey_id => @survey.id)
+     #raise @given_answer.inspect
+      @survey = Survey.find(params[:id])
+     @questions=@survey.questions
+      @given_answer=GivenAnswer.new
     #respond_with(@survey)
   end
 
