@@ -1,3 +1,4 @@
+<h3>Select survey</h3>
 <html>
 <head>
   </head>
@@ -10,10 +11,24 @@
   <tbody>
     <% @surveys.each do |survey| %>
       <tr>
-        <td><%= link_to survey.name, survey , class: "btn btn-link" %></td>
-        <td><%= link_to 'Show', survey , class: "btn btn-link" %></td>
-        <td><%= link_to 'Edit', edit_survey_path(survey),class: "btn btn-link" %></td>
-        <td><%= link_to 'Destroy', survey, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <td>
+          <%= link_to survey.name, survey , class: "btn btn-link" %></td>
+        <td><%= link_to survey , class: "btn btn-warning btn-md" do %>
+            <i class="glyphicon glyphicon-play"></i>Take Survey 
+            <% end %>
+          </td>
+
+        <td>
+          <% if user_signed_in? %>
+            <% if current_user.id == User.first.id %>
+              <%= link_to edit_survey_path(survey),class: "btn btn-info btn-md" do %>
+                  <i class="glyphicon glyphicon-open"></i>Report
+              <% end %>
+            </td>
+            <% end %>
+          <% end %>
+        <td><%#= link_to 'Destroy', survey, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -29,7 +44,9 @@
 
   <% if current_user.id == User.first.id %>
 
-<%= link_to 'New Survey', new_survey_path , class: "btn btn-success" %>
+<%= link_to new_survey_path , class: "btn btn-success btn-md" do %>
+    <i class="glyphicon glyphicon-plus"></i>Create Survey
+<% end %>
 <% end %>
 <% end %>
 

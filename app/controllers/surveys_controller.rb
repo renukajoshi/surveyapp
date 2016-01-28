@@ -11,21 +11,27 @@ class SurveysController < ApplicationController
   end
 
   def show
-    #raise params.inspect
-     #@given_answer =GivenAnswer.where(:survey_id => @survey.id)
-     #raise @given_answer.inspect
+    check = GivenAnswer.find_by(:user_id => current_user.id , :survey_id => @survey.id)
+    #raise check.inspect
+    if check.nil?
       @survey = Survey.find(params[:id])
-     @questions=@survey.questions
-      @given_answer=GivenAnswer.new
-    #respond_with(@survey)
+      @given_answer = GivenAnswer.new  
+      @questions = @survey.questions
+    else
+      flash[:error]="You already attempt this Survey....!!!"
+      redirect_to surveys_path
+    end
   end
 
-  def new
+  def new 
     @survey = Survey.new
+    @survey.given_answers.build
     respond_with(@survey)
   end
 
   def edit
+    @survey= Survey.find(params[:id])
+    @question_results =GivenAnswer.where(:survey_id => @survey.id)
   end
 
   def create
@@ -50,6 +56,6 @@ class SurveysController < ApplicationController
     end
 
     def survey_params
-      params.require(:survey).permit(:name)
+      params.require(:survey).permit(:name, given_answers_attributes: [:id , :survey_id , :question_id , :user_id])
     end
 end

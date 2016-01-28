@@ -1,6 +1,66 @@
-<h1>Editing survey</h1>
+<h3>Report</h3>
 
-<%= render 'form' %>
+<html>
+<head>
 
-<%= link_to 'Show', @survey %> |
-<%= link_to 'Back', surveys_path %>
+  </head>
+  <body>
+<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+<tr>
+	<th>Question</th>
+	<th>Answers</th>
+	<th>Total Attempt</th>
+	<th>Count</th>
+	
+</tr>
+<% @question_results.map(&:question).uniq.each do |que| %>
+	<tr>
+		<td>
+ 			<%= que.question_text %>
+ 		</td>
+ 		<% @options = GivenAnswer.where(:question_id => que.id) %>
+ 		<td> 
+ 			
+ 				<% checkbox_array=[] %>				
+ 				<% @options.map(&:answer).uniq.each do |option| %>
+
+ 					<% if que.types == "checkbox" %>
+ 						<% checkbox_array=checkbox_array + option.split('\n') %>
+ 					<% else %>
+ 					<%= option %><br>
+ 					<% end %> 	
+ 				<% end %>
+ 				<% checkbox_array.uniq.each do |checkbox_ans| %>
+					<%= checkbox_ans %><br>						
+				<% end %>
+
+ 		</td>
+ 		
+ 	<td>				
+ 		<%= @options.count %>
+ 	</td>
+ 	
+ 	<td>	
+ 		<% checkbox_array=[] %>	
+ 		<%  @options.map(&:answer).uniq.each do |option| %>
+ 			<% if que.types == "checkbox" %>
+ 				<% checkbox_array=checkbox_array + option.split('\n') %>					
+			<% else %>			
+ 				<% @counts = GivenAnswer.where(:answer => option) %>	
+ 				<%= @counts.count %><br>		
+ 			<% end%>
+ 		<% end%>
+ 				<% checkbox_array.uniq.each do |checkbox_ans| %>
+ 					<%= checkbox_array.count(checkbox_ans) %><br>	
+				<% end %>
+
+ 	</td> 	
+ </tr>
+<% end %>
+</table>
+
+<%= link_to surveys_path, class: 'col-lg-2 col-lg-offset-4 btn btn-info' do %>
+  <i class="glyphicon glyphicon-ok-circle"></i> Home
+<% end %>
+</body>
+</html>
