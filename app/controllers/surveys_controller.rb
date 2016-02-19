@@ -5,14 +5,12 @@ class SurveysController < ApplicationController
   respond_to :html
 
   def index
-
     @surveys = Survey.all
     respond_with(@surveys)
   end
 
   def show
     check = GivenAnswer.find_by(:user_id => current_user.id , :survey_id => @survey.id)
-    #raise check.inspect
     if check.nil?
       @survey = Survey.find(params[:id])
       @given_answer = GivenAnswer.new  
@@ -57,5 +55,6 @@ class SurveysController < ApplicationController
 
     def survey_params
       params.require(:survey).permit(:name, given_answers_attributes: [:id , :survey_id , :question_id , :user_id])
+      # this is survey params
     end
 end
