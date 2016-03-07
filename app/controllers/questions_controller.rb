@@ -4,10 +4,18 @@ class QuestionsController < ApplicationController
   respond_to :html
 
   def index
-    @questions = Question.all
+    @questions = Question.order(:question_text)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = Prawn::Document.new
+        send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
+      end
+      format.xls 
+    end
     #@questions=@survey.questions
     #@given_answer=@questions.given_answers
-    respond_with(@questions)
+    #respond_with(@questions)
   end
 
   def show

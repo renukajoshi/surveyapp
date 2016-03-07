@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-
+//
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
@@ -36,3 +36,15 @@ function checkCheckBoxes(theForm) {
 $(document).ready(function() {
     $('#html5Form').formValidation();
 });
+
+
+
+
+
+  		$(function(){
+  			new Highcharts.Chart({
+  				chart: {
+  					renderTo: "orders_chart"
+  				}
+  			});
+  		});

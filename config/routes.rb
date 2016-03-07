@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
   #resources :given_answers
 
-  #resources :questions
+  resources :questions
 
   #resources :questions
 
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     #resources :given_answers
   #end
 
-  
+  #root to: "questions#index"
   root to: "surveys#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

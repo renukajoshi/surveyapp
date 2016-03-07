@@ -1,46 +1,7 @@
-<%= form_for(@survey,@question) , html: {class: "form" role: "form"} do |f| %>
+<h1>Products</h1>
 
-<div class="panel-group">
-<div class="panel panel-default">
-  <% @survey.questions.each do |question| %>
-        <div class="panel-heading">
-          <strong><%= question.question_text %></strong>
-        </div>
-          <br>
-           <% options = question.answer_option.split('\n') %>
-            <% options_size = options.size %> 
-            
-            <div class="panel-body">
-
-            <div class="field form-group">  
-            <% if question.types == 4 %>
-              <br>
-                <%= text_field "ans" %>
-                <br>
-              <% elsif question.types == 3 %>
-                  <br>
-                <%= text_area_tag "ans" %>
-
-              <% elsif question.types == 1 %>
-
-                  <% for i in 0...options_size %> 
-                      <br>
-                    <%= radio_button_tag "ans", value: options[i] %> <%= options[i] %>
-                    <br>
-                  <% end %>
-              <% elsif question.types == 2 %>
-                <% for i in 0...options_size %> 
-                <br>
-                <%= check_box_tag "ans", value: options[i] %> <%= options[i] %>
-                <br>
-                <% end %>
-            <% end %>
-          </div>
-          </div>
-      <% end %>
-  <% end %>
-</div>
-</div>
-
-<%= link_to "Submit", class: "btn btn-primary"%>
-<%= link_to 'New Question', new_question_path %>
+<p>
+  Download:
+  <%= link_to "PDF", questions_path(format: "pdf") %> |
+  <%= link_to "XLS", questions_path(format: "xls") %>
+</p>
